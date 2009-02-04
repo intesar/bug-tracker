@@ -1,0 +1,41 @@
+Required Softwares
+
+
+JDK1.6 (Java Compiler required to compile and build java applications)
+Maven2.8 (Build tool like ANT, Compiles java Application)
+Netbeans6.5 (Development environment IDE)
+Tortoise SVN or oneclicksubversion (Subversion Client)
+Teamviewer (for remote desktop help)
+
+---------------------------------------------
+JDK1.6 
+download link
+https://cds.sun.com/is-bin/INTERSHOP.enfinity/WFS/CDS-CDS_Developer-Site/en_US/-/USD/ViewProductDetail-Start?ProductRef=jdk-6u11-oth-JPR@CDS-CDS_Developer
+install the above downloaded exe
+
+create JAVA_HOME environment variable
+right click "my computer" select "properties" 
+select "Advance System settings"
+select "advance tab" on vista
+click "Environment variables.." button at the bottom
+click new and enter "JAVA_HOME" and for value enter java installation location
+
+maven download link
+http://download.nextag.com/apache/maven/binaries/apache-maven-2.0.9-bin.zip
+create environment variable M2_HOME for the above installation
+
+Netbeans6.5
+http://www.netbeans.org/
+
+Tortoise or SVN
+http://svn1clicksetup.tigris.org/files/documents/3106/33794/Svn1ClickSetup-1.3.3.exe
+code location
+https://emuser.googlecode.com/svn/trunk/ProManager/
+
+Teamviewer
+http://www.teamviewer.com/download/index.aspx
+
+-------------------------------------------------------------------------------------
+
+
+

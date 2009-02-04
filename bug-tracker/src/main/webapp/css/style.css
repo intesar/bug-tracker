@@ -1,0 +1,16 @@
+table .render
+{
+    margin: 10px 50px;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+}
+thead .render
+{
+    background: #69f;
+}
+td.hover , tr.hover 
+{
+    background-color: #69f;
+}

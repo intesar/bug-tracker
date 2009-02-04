@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="BugTrackerPU" transaction-type="RESOURCE_LOCAL">
+    <!-- org.hibernate.ejb.HibernatePersistence -->
+    <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+    <!--
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.connection.driver_class" value="${jdbc.driverClassName}" />
+            <property name="hibernate.connection.url" value="${jdbc.url}" />
+            <property name="hibernate.connection.username" value="${jdbc.username}" />
+            <property name="hibernate.connection.password" value="${jdbc.password}" />
+        </properties>
+        -->
+    <class>com.bizintelapps.bugtracker.entity.ProjectUsers</class>
+    <class>com.bizintelapps.bugtracker.entity.UserReport</class>
+    <class>com.bizintelapps.bugtracker.entity.TaskImpedance</class>
+    <class>com.bizintelapps.bugtracker.entity.Task</class>
+    <class>com.bizintelapps.bugtracker.entity.Users</class>
+    <class>com.bizintelapps.bugtracker.entity.TaskHistory</class>
+    <class>com.bizintelapps.bugtracker.entity.ProjectReport</class>
+    <class>com.bizintelapps.bugtracker.entity.Organization</class>
+    <class>com.bizintelapps.bugtracker.entity.Authorities</class>
+    <class>com.bizintelapps.bugtracker.entity.TaskComments</class>
+    <class>com.bizintelapps.bugtracker.entity.Project</class>
+    <properties>
+      <property name="toplink.jdbc.driver" value="${jdbc.driverClassName}"/>
+      <property name="toplink.jdbc.url" value="${jdbc.url}"/>
+      <property name="toplink.jdbc.user" value="${jdbc.username}"/>
+      <property name="toplink.jdbc.password" value="${jdbc.password}"/>
+      <property name="toplink.logging.level" value="${logging.level}"/>
+      <property name="toplink.jdbc.read-connections.max" value="${jdbc.read-connections.max}"/>
+      <property name="toplink.jdbc.read-connections.min" value="${jdbc.read-connections.min}"/>
+      <property name="toplink.jdbc.write-connections.max" value="${jdbc.write-connections.max}"/>
+      <property name="toplink.jdbc.write-connections.min" value="${jdbc.write-connections.min}"/>
+      <property name="toplink.cache.type.default" value="${cache.type}"/>
+      <property name="toplink.cache.size.default" value="${cache.size}"/>
+      <property name="toplink.cache.type.Organization" value="${cache.type}"/>
+      <property name="toplink.cache.size.Organization" value="100"/>
+      <property name="toplink.cache.type.Users" value="${cache.type}"/>
+      <property name="toplink.cache.size.Users" value="500"/>
+      <property name="toplink.cache.type.Authorities" value="${cache.type}"/>
+      <property name="toplink.cache.size.Authorities" value="1000"/>
+      <property name="toplink.cache.type.Project" value="${cache.type}"/>
+      <property name="toplink.cache.size.Project" value="1000"/>
+      <property name="toplink.cache.type.ProjectUsers" value="${cache.type}"/>
+      <property name="toplink.cache.size.ProjectUsers" value="1000"/>
+      <property name="toplink.cache.type.Task" value="${cache.type}"/>
+      <property name="toplink.cache.size.Task" value="6000"/>
+      <property name="toplink.cache.type.UserReport" value="${cache.type}"/>
+      <property name="toplink.cache.size.UserReport" value="2000"/>
+      <property name="toplink.cache.type.ProjectReport" value="${cache.type}"/>
+      <property name="toplink.cache.size.ProjectReport" value="2000"/>
+    </properties>
+  </persistence-unit>
+</persistence>
