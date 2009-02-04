@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+    <bean id="mailSender" class="com.bizintelapps.mail.MailSenderImpl">
+        <property name="emailHostWrappers">
+            <list>
+                <ref bean="emailHostWrapper1" />
+                <ref bean="emailHostWrapper2" />
+                <ref bean="emailHostWrapper2" />
+            </list>
+        </property>
+    </bean>
+    <bean id="emailHostWrapper1" class="com.bizintelapps.mail.EmailHostWrapper">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="465" />
+        <property name="from" value="grow-fast1@bizintelapps.com" />
+        <property name="password" value="Abbh1234" />
+    </bean>
+    <bean id="emailHostWrapper2" class="com.bizintelapps.mail.EmailHostWrapper">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="465" />
+        <property name="from" value="grow-fast2@bizintelapps.com" />
+        <property name="password" value="Abbh1234" />
+    </bean>
+    <bean id="emailHostWrapper3" class="com.bizintelapps.mail.EmailHostWrapper">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="465" />
+        <property name="from" value="grow-fast3@bizintelapps.com" />
+        <property name="password" value="Abbh1234" />
+    </bean>
+</beans>

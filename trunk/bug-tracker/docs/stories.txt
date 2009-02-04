@@ -1,0 +1,355 @@
+Use Case Stories
+
+Story Point rule
+Table Creation or Update 1pt
+Dao creation or update 1pt
+Service 2pt
+Unit test 1pt
+ajax service 1pt
+email  1pt
+html page 1pt
+javascript 1pt
+
+
+Story No. 1
+
+Title:
+Sign Up
+
+Description:
+New Companies or enterprises should be able to register into system 
+by providing
+ enterprise name & city 
+ Admin name
+ Admin username, password 
+
+
+Acceptance Criteria:
+
+Estimated Hours : 12 * 1.5
+story pts : 9 + 3
+
+Total Hours Spend
+
+
+
+Story No. 2
+
+Title:
+Login
+
+Description:
+Ability to login into system for registered members
+
+Acceptance Criteria:
+
+Estimated Hours
+
+Total Hours Spend
+
+
+
+
+Story No. 3
+
+Title:
+Password recovery
+
+Description:
+Users should be able to recover there lost passwords
+users only have email as proof send temp password and ask them to change later
+
+Note: should not change user password upon request
+
+Acceptance Criteria:
+
+Story pt: S2 + E1 + S2 + A2 + H2 + J2
+Estimated Hours 11 * 1.5
+
+
+
+Total Hours Spend
+
+
+
+
+Story No. 4
+
+Title:
+Create Users
+
+Description:
+admins should be able to Add new users to the system
+
+Acceptance Criteria:
+
+Story Pt 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+
+
+
+Story No. 5
+
+Title:
+View Existing users
+
+Description:
+admins should be able to see all existing users in the company
+
+Acceptance Criteria:
+
+Story Pt : 2S + 1A + 1H + 2J
+
+Estimated Hours
+
+Total Hours Spend
+
+
+
+
+
+
+Story No. 6
+
+Title:
+Update user information
+
+Description:
+admins should be able to change user profile
+change roles
+change enable status
+change password
+
+
+Acceptance Criteria:
+
+Story Pt: 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 7
+
+Title:
+Create Project
+
+Description:
+admins should be able to Add new Project to the system
+
+Acceptance Criteria:
+
+Story Pt 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+
+
+
+Story No. 5
+
+Title:
+View Existing Project
+
+Description:
+admins should be able to see all existing projects in the company
+Project Manager will see all there manage projects
+General users will not be able to see anything
+
+Acceptance Criteria:
+
+Story Pt : 2S + 1A + 1H + 2J
+
+Estimated Hours
+
+Total Hours Spend
+
+
+
+Story No. 6
+
+Title:
+Update Project information
+
+Description:
+admins should be able to change any project status
+Project managers will be able to change manage project status
+
+Acceptance Criteria:
+
+Story Pt: 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+
+Story No. 6.1
+
+Title:
+view project users
+
+Description:
+Admin or Project manager will be able to view current project users
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+
+Story No. 7
+
+Title:
+Add user to project
+
+Description:
+Admin or Project manager will be able to add new users to projects
+any added user can be designated as project manager
+
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+Story No. 8
+
+Title:
+Remove user as project manager
+
+Description:
+Admin or Project manager will be able to remove users as project managers
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 9
+
+Title:
+Remove user from a project
+
+Description:
+Admin or Project manager will be able to remove users from projects
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 10
+
+Title:
+Create Task
+
+Description:
+Admin can create task on any project and for any user
+Project manager can create task on all managed projects
+Members can create task on projects
+Users can create todo's
+
+getProjectsForDropdown() returns project name and id along with user list for creating tasks
+
+Acceptance Criteria:
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+
+
+
+Story No. 11
+
+Title:
+Task Search
+
+Description:
+users should be able to search task by Projects, Dates & Task status
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 12
+
+Title:
+Take task responsibility
+Admin, PM, Owner can assign to different user
+
+Description:
+users can poll for non assigned tasks
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+Story No. 13
+
+Title:
+Delete Task
+
+Description:
+Admins, PM, Owners can delete task
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+Story No. 14
+
+Title:
+Change Task Status
+
+Description:
+Admins, PM, Owners, assigned can change task status
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 15
+
+Title:
+Update Task
+Update Description
+Add Comment
+
+Description:
+
+
+Acceptance Criteria:
+
+Estimated Hours
+
+Total Hours Spend

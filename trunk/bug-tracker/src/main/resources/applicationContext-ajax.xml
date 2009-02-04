@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.directwebremoting.org/schema/spring-dwr
+    http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+    
+    <!--
+     ##########################################################################
+                            Services Declerations Begin
+     ##########################################################################
+    -->
+
+    <!-- Example Services Decleration
+
+
+    <bean id="personServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+        <property name="personDao" ref="personDao"/>
+    </bean>
+
+    
+    -->
+    <bean id="usersAjaxService" class="com.bizintelapps.bugtracker.ajax.AjaxUsersService" >
+        <dwr:remote javascript="AjaxUsersService">
+            <dwr:include method="signUp" /> <!-- annonymous -->
+            <dwr:include method="saveUser" /> <!-- admin -->
+            <dwr:include method="changeMyPassword" /> <!-- user -->
+            <dwr:include method="requestPasswordKeySendToEmail" /> <!-- annonymous -->
+            <dwr:include method="resetPasswordWithKey" /> <!-- annonymous -->
+            <dwr:include method="getUserDetails" /> <!-- admin -->
+            <dwr:include method="getActiveUserList" /> <!-- user -->
+            <dwr:include method="getUserList" /> <!-- admin -->
+            <dwr:include method="enableDisalbeUser" /> <!-- admin -->
+            <dwr:include method="deleteUser" /> <!-- admin -->
+            <dwr:include method="getUsersListforDropdown" /> <!-- users -->
+        </dwr:remote>
+        <!-- <property name="usersService" ref="usersServiceImpl" /> -->
+    </bean>
+    <bean id="projectAjaxService" class="com.bizintelapps.bugtracker.ajax.AjaxProjectService" >
+        <dwr:remote javascript="AjaxProjectService">
+            <dwr:include method="saveProject" /> <!-- user -->
+            <dwr:include method="getProjectList" /> <!-- user -->
+            <dwr:include method="getProjectsForDropdown" /> <!-- user -->
+            <dwr:include method="deleteProject" /> <!-- admin -->
+            <dwr:include method="saveUserToProject" /> <!-- user -->
+            <dwr:include method="getProjectUsers" /> <!-- user -->
+            <dwr:include method="deleteUserFromProject" /> <!-- user -->
+        </dwr:remote>
+    </bean>
+    <bean id="taskAjaxService" class="com.bizintelapps.bugtracker.ajax.AjaxTaskService" >
+        <dwr:remote javascript="AjaxTaskService">
+            <dwr:include method="saveTask" /><!-- user -->
+            <dwr:include method="searchTasks" /><!-- user -->
+            <dwr:include method="assignTaskUser" /><!-- user -->
+            <dwr:include method="deleteTask" /><!-- user -->
+            <dwr:include method="changeTaskStatus" /><!-- user -->
+            <dwr:include method="changeTaskPriority" /><!-- user -->
+            <dwr:include method="addTaskComment" /><!-- user -->
+            <dwr:include method="udpateTaskDescription" /><!-- user -->
+            <dwr:include method="getCurrentTask" /><!-- user -->
+            <dwr:include method="getRecentCompletedTask" /> <!-- user -->
+        </dwr:remote>
+    </bean>
+    <bean id="reportAjaxService" class="com.bizintelapps.bugtracker.ajax.AjaxReportService">
+        <dwr:remote javascript="AjaxReportService">
+            <dwr:include method="getUserReports" /> <!-- user -->
+            <dwr:include method="getCurrentUserReport" /> <!-- user -->
+            <dwr:include method="getAllUserReport" /> <!-- admin -->
+            <dwr:include method="getProjectReports" /><!-- user -->
+            <dwr:include method="getProjectReportSummary" /> <!-- user -->
+            <dwr:include method="getCurrentProjectReport" /> <!-- user -->
+            <dwr:include method="getUserReportSummary" /> 
+        </dwr:remote>
+    </bean>
+    <dwr:configuration>
+        <dwr:convert class="com.bizintelapps.bugtracker.dto.*" type="bean"/>
+        <dwr:convert class="java.util.*" type="bean"/>
+        <dwr:convert class="com.bizintelapps.bugtracker.exceptions.ServiceRuntimeException" type="exception" >
+            <dwr:include method="message" />
+        </dwr:convert>
+    </dwr:configuration>
+</beans>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd       
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+         http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+-->
+  <!-- ======================== FILTER CHAIN ======================= -->
+    <bean id="filterChainProxy"
+        class="org.acegisecurity.util.FilterChainProxy">
+        <property name="filterInvocationDefinitionSource">
+            <value>
+        CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+        PATTERN_TYPE_APACHE_ANT
+        /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+            </value>
+        </property>
+    </bean>
+     
+  <!-- responsible for setting up a security context holder for other
+       authentication mechanisms to work with -->
+    <bean id="httpSessionContextIntegrationFilter"
+        class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
+    </bean>
+
+  <!-- Processes formbased authentication.
+       The html form should contain to input fields: j_username and j_password.
+       The post of the form should point at the value of the "filterProcessesUrl"
+       in this case /j_acegi_security_check -->
+    <bean id="authenticationProcessingFilter"
+        class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationFailureUrl" value="/view/login.jsp?login_error=1"/>
+        <property name="defaultTargetUrl" value="/view/task.jsp"/>
+        <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+    </bean>
+    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+        <constructor-arg index="0" value="/view/login.jsp"/>
+        <constructor-arg index="1">
+            <list>
+                <ref local="securityContextLogoutHandler"/>
+                <ref local="rememberMeServices"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+    <bean id="securityContextLogoutHandler" class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
+
+  <!-- remember me processing filter used to handle logout -->
+    <bean id="rememberMeProcessingFilter"
+        class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
+        <property name="rememberMeServices" ref="rememberMeServices" />
+        <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
+    <bean id="rememberMeServices"
+        class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
+        <property name="userDetailsService">
+            <ref local="userDetailsService"/>
+        </property>
+        <property name="key" value="someTokenName"/>
+    </bean>
+    <bean id="rememberMeAuthenticationProvider"
+        class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
+        <property name="key" value="someTokenName"/>
+    </bean>
+    <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        <property name="key" value="changeThis"/>
+        <property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+    </bean>
+    
+  <!--http://www.acegisecurity.org/docbook/acegi.html#remember-me -->
+
+  <!-- filter responsible for access decisions. What urlrequests may be
+       processed by which roles -->
+    <bean id="filterInvocationInterceptor"
+        class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager">
+            <ref local="httpRequestAccessDecisionManager"/>
+        </property>
+        <property name="objectDefinitionSource">
+            <value>
+        CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+        PATTERN_TYPE_APACHE_ANT                                              
+                /view/task.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/organization.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/projects.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/reports.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/settings.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/users.jsp*=ROLE_USER,ROLE_ADMIN
+            </value>
+        </property>
+    </bean>
+
+  <!-- filter responsible for translating exceptions and delegating to the
+       provided authenticationEntryPoint -->
+    <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint">
+            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+                <property name="loginFormUrl" value="/view/login.jsp"/>
+                <property name="forceHttps" value="false"/>
+            </bean>
+        </property>
+        <property name="accessDeniedHandler">
+            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+                <property name="errorPage" value="/view/denied.html"/>
+            </bean>
+        </property>
+    </bean>
+
+  <!-- ======================== AUTHENTICATION ======================= -->
+
+  <!-- changed to work with formbased login -->
+    <bean id="authenticationEntryPoint"
+        class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+        <property name="loginFormUrl" value="/view/login.jsp"/>
+    </bean>
+    <bean id="authenticationManager"
+        class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider"/>
+                <ref local="rememberMeAuthenticationProvider"/>
+            </list>
+        </property>
+    </bean>
+   
+
+<!-- This Spring Security-friendly PasswordEncoder implementation will -->
+  <!-- wrap the PasswordEncryptor instance so that it can be used from   -->
+  <!-- the security framework.     org.jasypt.spring.security2.PasswordEncoder      -->
+    <bean id="passwordEncoder" class="org.jasypt.spring.security.PasswordEncoder" >
+        <property name="passwordEncryptor">
+            <ref bean="jasyptPasswordEncryptor" />
+        </property>
+    </bean>
+    <bean id="daoAuthenticationProvider"
+        class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/> <!-- memoryAuthenticationDao -->
+        <property name="passwordEncoder">
+            <ref bean="passwordEncoder" />
+        </property>
+        <property name="userCache">
+            <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+                <property name="cache">
+                    <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                        <property name="cacheManager">
+                            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                        </property>
+                        <property name="cacheName" value="userCache"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="userDetailsService"
+          class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+    <!--
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://biadevbox.homelinux.com:3306/proaccounting</value>
+        </property>
+        <property name="username">
+            <value>pa</value>
+        </property>
+        <property name="password">
+            <value>pa</value>
+        </property>
+    </bean>
+    -->
+    <bean id="httpRequestAccessDecisionManager"
+        class="org.acegisecurity.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+        <property name="decisionVoters">
+            <list>
+                <ref local="roleVoter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
+        <property name="rolePrefix" value=""/>
+    </bean>
+    <bean id="methodSecurityInterceptor" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager">
+            <ref bean="authenticationManager" />
+        </property>
+        <property name="accessDecisionManager">
+            <bean class="org.acegisecurity.vote.AffirmativeBased">
+                <property name="allowIfAllAbstainDecisions" value="false" />
+                <property name="decisionVoters">
+                    <list>
+                        <bean class="org.acegisecurity.vote.RoleVoter" />
+                        <bean class="org.acegisecurity.vote.AuthenticatedVoter" />
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="objectDefinitionSource">
+            <value>
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.saveUser=ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.getUsersListforDropdown=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.changeMyPassword=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.requestPasswordKeySendToEmail=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.resetPasswordWithKey=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.getUserDetails=ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.getActiveUserList=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.getUserList=ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxUsersService.deleteUser=ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.saveProject=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.getProjectList=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.getProjectsForDropdown=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.deleteProject=ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.saveUserToProject=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.getProjectUsers=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxProjectService.deleteUserFromProject=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.bugtracker.ajax.AjaxTaskService.*=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.bugtracker.ajax.AjaxReportService.*=ROLE_USER
+            </value>
+        </property>
+    </bean>
+    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <value>methodSecurityInterceptor</value>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <value>usersAjaxService</value>
+            </list>
+        </property>
+    </bean>
+</beans>

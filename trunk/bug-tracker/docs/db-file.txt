@@ -1,0 +1,45 @@
+Login Details:
+
+download tightvnc viewer from internet and use it to connect to 
+
+host: biadevbox.homelinux.com::6000
+pass: apple
+
+once you login do this two things
+
+open query browser login with root/apple
+create db (pm) & tables
+
+open query administrator
+create user pm/pm with all priveleges to database pm
+
+tables:
+
+
+organization [ id integer pk, name varchar(45), website_url varchar(45), create_user_firstname varchar(45), create_user_lastname varchar(45),
+ create_user_email varchar(45), create_ip varchar(45), create_date DATETIME]
+
+users [ id integer pk, username varchar(45), password varchar(145), is_encrypted tinyint(1), enabled tinyint(1), firstname varchar(45), 
+ lastname varchar(45), email varchar(45), city varchar(45), country varchar(45), create_user varchar(45), create_date DATETIME]
+
+project [id integer pk, name varchar(45), description varchar(255), status varchar(45), create_user varchar(45), create_date DATETIME,
+ visibility varchar(45), parent_project integer, organization integer fk]
+
+organization_users [ id integer pk, organization integer fk, user integer fk, role varchar(45), create_date DATETIME, create_user varchar(45), 
+ is_enabled tinyint(1), expiration_date DATE]
+
+project_users [ id integer pk, project integer fk, user integer fk, role varchar(45), create_date DATETIME, create_user varchar(45), 
+ is_enabled tinyint(1), expiration_date DATE]
+
+
+task [id integer pk, create_user integer fk, project integer fk, title varchar(45), description varchar(255), deadline DATETIME,
+ create_date DATETIME, assigned_to_user integer fk, visibility varchar(45), percentage_complete integer,
+ status varchar(45), priority varchar(45), parent_task integer fk, sequence_number double, complete_date DATETIME, last_status_changed_date DateTime]
+
+task_history [id integer pk, task integer fk, title varchar(45), description varchar(245), deadline DATETIME, assigned_to_user integer fk, 
+ visibility varchar(45), percentage_complete integer, status varchar(45), priority varchar(45), sequence_number double ]
+
+task_comments [ id integer pk, task integer fk, create_user integer fk, text varchar(245), create_date DATETIME ]
+
+task_impedance [ id integer pk, task integer fk, create_user integer fk, text varchar (245), create_date DATETIME, is_resolved tinyint(1), 
+ resolved_date DATETIME, resolved_user integer fk, last_updated_user integer fk]
